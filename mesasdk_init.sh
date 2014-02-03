@@ -17,7 +17,7 @@ fi
 
 # Define a function to deactivate the SDK
 
-deactivatesdk () {
+deactivatemesasdk () {
 
     # reset old environment variables
 
@@ -61,7 +61,7 @@ deactivatesdk () {
 }
 
 # make the script idempotent by calling deactivate nondestructively
-deactivatesdk nondestructive
+deactivatemesasdk nondestructive
 
 # Save old paths & set new paths
 

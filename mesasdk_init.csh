@@ -16,10 +16,10 @@ if ( `${MESASDK_ROOT}/bin/mesasdk_arch_check.pl` != 'Y' ) then
 endif
 
 # Define an alias to deactivate the SDK
-alias deactivatesdk 'test $?_OLD_MESASDK_PATH != 0 && setenv PATH "$_OLD_MESASDK_PATH" && unset _OLD_MESASDK_PATH; test $?_OLD_MESASDK_MANPATH != 0 && setenv MANPATH "$_OLD_MESASDK_MANPATH" && unset _OLD_MESASDK_MANPATH; test $?_OLD_MESASDK_MANPATH = 0 && test "\!:*" != "nondestructive" && unset MANPATH ; rehash; test $?_OLD_MESASDK_PGPLOT_DIR != 0 && set PGPLOT_DIR="$_OLD_MESASDK_PGPLOT_DIR" && unset _OLD_MESASDK_PGPLOT_DIR; test $?_OLD_MESASDK_PROMPT != 0 && set prompt="$_OLD_MESASDK_PROMPT" && unset _OLD_MESASDK_PROMPT; test "\!:*" != "nondestructive" && unalias deactivatesdk'
+alias deactivatemesasdk 'test $?_OLD_MESASDK_PATH != 0 && setenv PATH "$_OLD_MESASDK_PATH" && unset _OLD_MESASDK_PATH; test $?_OLD_MESASDK_MANPATH != 0 && setenv MANPATH "$_OLD_MESASDK_MANPATH" && unset _OLD_MESASDK_MANPATH; test $?_OLD_MESASDK_MANPATH = 0 && test "\!:*" != "nondestructive" && unset MANPATH ; rehash; test $?_OLD_MESASDK_PGPLOT_DIR != 0 && set PGPLOT_DIR="$_OLD_MESASDK_PGPLOT_DIR" && unset _OLD_MESASDK_PGPLOT_DIR; test $?_OLD_MESASDK_PROMPT != 0 && set prompt="$_OLD_MESASDK_PROMPT" && unset _OLD_MESASDK_PROMPT; test "\!:*" != "nondestructive" && unalias deactivatesdk'
 
 # make the script idempotent by calling deactivate nondestructively
-deactivatesdk nondestructive
+deactivatemesasdk nondestructive
 
 # Save old paths & set new paths
 
