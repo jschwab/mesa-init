@@ -1,5 +1,3 @@
-# $Id: mesasdk_init.csh 187 2012-08-09 07:33:23Z townsend $
-
 # The enviroment managment portions of these scripts were inspired by
 # the scripts shipped with the python virtualenv package
 

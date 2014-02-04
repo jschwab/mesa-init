@@ -1,5 +1,3 @@
-# $Id: mesasdk_init.sh 187 2012-08-09 07:33:23Z townsend $
-
 # The enviroment managment portions of these scripts were inspired by
 # the scripts shipped with the python virtualenv package
 
@@ -85,5 +83,3 @@ if [ -z "$MESASDK_DISABLE_PROMPT" ] ; then
     _OLD_MESASDK_PS1="$PS1"
     export PS1="[mesasdk] $PS1"
 fi
-
-
