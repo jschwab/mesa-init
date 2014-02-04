@@ -1,0 +1,31 @@
+* MESA SDK Init Scripts
+These scripts are drop-in replacements for the initialization scripts
+provided by the [[http://www.astro.wisc.edu/~townsend/static.php?ref%3Dmesasdk][MESA SDK]].  They are useful if you frequently use
+non-SDK compilers as part of other work.
+** Installation
+You can overwrite the files that come with the SDK.
+#+BEGIN_EXAMPLE
+cp mesasdk_init.csh $MESASDK_ROOT/bin
+cp mesasdk_init.sh $MESASDK_ROOT/bin
+#+END_EXAMPLE
+** Usage
+*** Turn on the SDK
+#+BEGIN_EXAMPLE
+activatemesasdk
+#+END_EXAMPLE
+
+By default this will prepend "[mesasdk]" to your command prompt to
+remind you that the SDK is active.  If you don't wish this to occur,
+set the variable
+#+BEGIN_EXAMPLE
+MESASDK_DISABLE_PROMPT=t
+#+END_EXAMPLE
+in your shell.
+
+*** Turn off the SDK
+When you activate the SDK, it makes the following command available.
+Issuing it removes the SDK from your system paths.
+#+BEGIN_EXAMPLE
+deactivatemesasdk
+#+END_EXAMPLE
+
