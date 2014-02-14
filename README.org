@@ -8,21 +8,43 @@ You can overwrite the files that come with the SDK.
 cp mesasdk_init.csh $MESASDK_ROOT/bin
 cp mesasdk_init.sh $MESASDK_ROOT/bin
 #+END_EXAMPLE
+
+Note: As of release 20140203, the SDK includes these scripts by
+default.
 ** Usage
-*** Turn on the SDK
+*** Activating the SDK
+Install the SDK according to the instructions appropriate to your
+platform.  In your shell initialization file, set the variable
+MESASDK_ROOT to the location where you installed the SDK.
+
+For the C shell (e.g., .cshrc)
 #+BEGIN_EXAMPLE
-activatemesasdk
+setenv MESASDK_ROOT /path/to/mesasdk
+#+END_EXAMPLE
+For the Bourne shell (e.g, .bashrc)
+#+BEGIN_EXAMPLE
+export MESASDK_ROOT=/path/to/mesasdk
 #+END_EXAMPLE
 
-By default this will prepend "[mesasdk]" to your command prompt to
-remind you that the SDK is active.  If you don't wish this to occur,
-set the variable
-#+BEGIN_EXAMPLE
-MESASDK_DISABLE_PROMPT=t
-#+END_EXAMPLE
-in your shell.
+By default, the initialization scripts will prepend "[mesasdk]" to
+your command prompt to remind you that the SDK is active.  If you
+don't wish this to occur, set the shell variable
+MESASDK_DISABLE_PROMPT to a non-zero length value before sourcing the
+initialization scripts.
 
-*** Turn off the SDK
+Now, activate the SDK by sourcing the init script for your shell.
+
+For the C shell
+#+BEGIN_EXAMPLE
+source $MESASDK_ROOT/bin/mesasdk_init.csh
+#+END_EXAMPLE
+
+For the Bourne shell
+#+BEGIN_EXAMPLE
+source $MESASDK_ROOT/bin/mesasdk_init.sh
+#+END_EXAMPLE
+
+*** Deactivating the SDK
 When you activate the SDK, it makes the following command available.
 Issuing it removes the SDK from your system paths.
 #+BEGIN_EXAMPLE
