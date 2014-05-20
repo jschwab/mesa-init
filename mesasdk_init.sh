@@ -54,7 +54,7 @@ deactivatemesasdk () {
 
     # Self destruct!
     if [ ! "$1" = "nondestructive" ] ; then
-        unset -f deactivatesdk
+        unset -f deactivatemesasdk
     fi
 }
 
