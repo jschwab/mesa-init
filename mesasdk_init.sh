@@ -46,11 +46,8 @@ deactivatemesasdk () {
         unset _OLD_MESASDK_PGPLOT_DIR
     fi
 
-    # reset the command prompt
-    if [ -n "$_OLD_MESASDK_PS1" ] ; then
-        export PS1="$_OLD_MESASDK_PS1"
-        unset _OLD_MESASDK_PS1
-    fi
+    # 
+    unset MESASDK_ACTIVE
 
     # Self destruct!
     if [ ! "$1" = "nondestructive" ] ; then
@@ -78,8 +75,5 @@ hash -r 2>/dev/null
 _OLD_MESASDK_PGPLOT_DIR="$PGPLOT_DIR"
 export PGPLOT_DIR="${MESASDK_ROOT}/pgplot"
 
-# Alter the command prompt unless instructed not to
-if [ -z "$MESASDK_DISABLE_PROMPT" ] ; then
-    _OLD_MESASDK_PS1="$PS1"
-    export PS1="[mesasdk] $PS1"
-fi
+# indicate the SDK is active
+export MESASDK_ACTIVE=t
