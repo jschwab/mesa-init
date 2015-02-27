@@ -4,7 +4,8 @@ mkworkdir () {
     cp -r $MESA_DIR/star/work $1
 }
 
-/home/jschwab/Software/mesasdk-init/config2bash ${HOME}/.mesainitrc > ${HOME}/.mesainitrc.bash
+DIR="$(dirname ${BASH_SOURCE})"
+${DIR}/config2bash ${HOME}/.mesainitrc > ${HOME}/.mesainitrc.bash
 source ${HOME}/.mesainitrc.bash
 
 __mesa_ps1 () {
