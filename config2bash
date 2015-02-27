@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+
+import configparser
+import os.path
+import sys
+
+def print_function(config):
+
+    # open the function
+    print('chmesadir () {')
+
+    # open the case statement
+    print('\tcase $1 in')
+
+    # add a case for each section in the file
+    for section in config.sections():
+        print('\t{})'.format(section))
+        for key in config[section]:
+            print('\t\texport {}={}'.format(key.upper(), config[section][key]))
+        print('\t\texport MESA_PS1_ID="{}"'.format(section))
+        print('\t\t;;')
+
+    # default case is to complain
+    print('\t*)')
+    print('\t\techo "unknown MESA_DIR"')
+    print('\t\t;;')
+
+    # close the case statement
+    print('\tesac')
+
+    # close the function
+    print('}\n')
+
+def print_completion(config):
+
+    # open the function
+    print('_chmesadir() {')
+
+    # define some local variables
+    print('\tlocal cur prev opts')
+
+    # completion
+    print('\tcur="${COMP_WORDS[COMP_CWORD]}"')
+    print('\tprev="${COMP_WORDS[COMP_CWORD-1]}"')
+
+    # generate option list
+    print('\topts="{}"'.format(' '.join(config.sections())))
+
+    # completion magic
+    print('\tCOMPREPLY=( $(compgen -W "${opts}" ${cur}) )')
+    print('\treturn 0')
+
+    # close the function
+    print('}\n')
+
+    # register the completion
+    print('complete -F _chmesadir chmesadir')
+    print('\n')
+
+
+def main(filename):
+
+    config = configparser.ConfigParser()
+    config.read(filename)
+
+    print_function(config)
+    print_completion(config)
+
+if __name__ == '__main__':
+
+    filename = sys.argv[1]
+
+    if os.path.exists(filename):
+        main(filename)
+    else:
+        print('File does not exist')
