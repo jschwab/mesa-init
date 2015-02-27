@@ -49,7 +49,7 @@ Now, add the following lines to your =.bashrc=.
       source /path/to/mesa-init/mesasdk_init.sh
   }
 
-  # if you want, you can call it now, but wait and I call it manually,
+  # if you want, you can call it now.  I call it manually,
   # since I only want the SDK active sometimes
 
   # activatemesasdk
