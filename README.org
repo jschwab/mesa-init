@@ -1,50 +1,88 @@
-* MESA SDK Init Scripts
-These scripts are drop-in replacements for the initialization scripts
-provided by the [[http://www.astro.wisc.edu/~townsend/static.php?ref%3Dmesasdk][MESA SDK]].  They are useful if you frequently use
-non-SDK compilers as part of other work.
-** Installation
-You can overwrite the files that come with the SDK.
-#+BEGIN_EXAMPLE
-cp mesasdk_init.csh $MESASDK_ROOT/bin
-cp mesasdk_init.sh $MESASDK_ROOT/bin
-#+END_EXAMPLE
-** Usage
-*** Activating the SDK
-Install the SDK according to the instructions appropriate to your
-platform.  In your shell initialization file, set the variable
-MESASDK_ROOT to the location where you installed the SDK.
+* MESA Init Scripts
+These scripts simplify the management of environment variables related
+to [[http://mesa.sourceforge.net][MESA]] and the [[http://www.astro.wisc.edu/~townsend/static.php?ref%3Dmesasdk][MESA SDK]].  They should be particularly useful for
+users who run multiple MESA versions or use non-SDK compilers as part
+of other work.
 
-For the C shell (e.g., .cshrc)
+These scripts are designed to work with the bash shell.  They also
+assume you have python3 installed.
+
+** Installation and Setup
+Clone this git repository
 #+BEGIN_EXAMPLE
-setenv MESASDK_ROOT /path/to/mesasdk
-#+END_EXAMPLE
-For the Bourne shell (e.g, .bashrc)
-#+BEGIN_EXAMPLE
-export MESASDK_ROOT=/path/to/mesasdk
+git clone https://github.com/jschwab/mesa-init.git
 #+END_EXAMPLE
 
-By default, the initialization scripts will prepend "[mesasdk]" to
-your command prompt to remind you that the SDK is active.  If you
-don't wish this to occur, set the shell variable
-MESASDK_DISABLE_PROMPT to a non-zero length value before sourcing the
-initialization scripts.
+Create a file named =.mesa_init= in your home directory.  List the
+paths to your various MESA versions using [[http://en.wikipedia.org/wiki/INI_file][ini]] format, as below.
 
-Now, activate the SDK by sourcing the init script for your shell.
-
-For the C shell
 #+BEGIN_EXAMPLE
-source $MESASDK_ROOT/bin/mesasdk_init.csh
+  [svn]
+      MESA_DIR = /path/to/mesa
+
+  [r5118]
+      MESA_DIR = /path/to/mesa-r5118
+
+  [r6794]
+      MESA_DIR = /path/to/mesa-r6794
+
+  [r7184]
+      MESA_DIR = /path/to/mesa-r7184
 #+END_EXAMPLE
 
-For the Bourne shell
+You can use whatever names in the square braces that you desire.  That
+will be your shorthand to refer to that particular version.  Instead
+of version numbers, you might want to use descriptors associated with
+the particular project you are doing with that version.
+
+Now, add the following lines to your =.bashrc=.
 #+BEGIN_EXAMPLE
-source $MESASDK_ROOT/bin/mesasdk_init.sh
+  # set the MESA and MESA SDK paths
+  export MESA_DIR=/path/to/mesa
+  export MESASDK_ROOT=/path/to/mesasdk
+
+  # source the mesa init script
+  source /path/to/mesa-init/mesa_init.sh
+
+  # add a command to activate the SDK
+  activatemesasdk () {
+      source /path/to/mesa-init/mesasdk_init.sh
+  }
+
+  # if you want, you can call it now, but wait and I call it manually,
+  # since I only want the SDK active sometimes
+
+  # activatemesasdk
+
+  # __mesa_ps1 shows the MESA and MESA SDK status.
+  # you can use it in your bash prompt.  my PS1 looks like
+
+  # PS1='$(__mesa_ps1)\h: \W$ '
+
 #+END_EXAMPLE
 
-*** Deactivating the SDK
-When you activate the SDK, it makes the following command available.
-Issuing it removes the SDK from your system paths.
-#+BEGIN_EXAMPLE
-deactivatemesasdk
-#+END_EXAMPLE
+** Usage with MESA
+There is now a function =chmesadir= defined in your environment, which
+allows you to switch between the MESA versions you listed in
+=.mesa_init=. The function provides completion information, so you can
+hit tab to see or complete your options.
+
+[[file:screenshots/completion.png]]
+
+When you invoke it, it will change the =MESA_DIR= environment variable
+and update the variables controlling the MESA-related information
+displayed in your prompt.
+
+[[file:screenshots/variables.png]]
+
+** Usage with MESA SDK
+If you followed the above instructions, you defined an
+=activatemesasdk= function.  Issuing this command will add the SDK to
+your system paths.
+
+When you activate the SDK, it defines a =deactivatemesasdk= command
+function.  Issuing this command will remove the SDK from your system
+paths.
+
+[[file:screenshots/sdk.png]]
 
