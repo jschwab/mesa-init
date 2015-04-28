@@ -40,3 +40,7 @@ mkworkdir () {
     cp -r $MESA_DIR/star/work $1
 }
 
+cdmesa () {
+    cd $MESA_DIR
+}
+
