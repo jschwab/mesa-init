@@ -81,7 +81,7 @@ hash -r 2>/dev/null
 
 # take care of PGPLOT
 _OLD_MESASDK_PGPLOT_DIR="$PGPLOT_DIR"
-export PGPLOT_DIR="${MESASDK_ROOT}/pgplot"
+export PGPLOT_DIR="${MESASDK_ROOT}/lib/pgplot"
 
 # take care of valgrind
 export VALGRIND_LIB="${MESASDK_ROOT}/lib/valgrind"
