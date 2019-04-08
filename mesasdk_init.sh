@@ -5,12 +5,18 @@
 
 if [[ -z "$MESASDK_ROOT" ]]; then
     echo "mesasdk_init.sh: you need to set the MESASDK_ROOT environment variable"
+    return 1
 fi
 
 # Check architecture
 
-if [ `${MESASDK_ROOT}/bin/mesasdk_arch_check.pl` != 'Y' ]; then
+if [ ! -f "${MESASDK_ROOT}/etc/check_arch.done" ]; then
+    echo "mesasdk_init.sh: checking architecture"
+    if [ `${MESASDK_ROOT}/bin/mesasdk_arch_check` != 'Y' ]; then
     echo "mesasdk_init.sh: unsupported architecture"
+	return 1
+    fi
+    touch "${MESASDK_ROOT}/etc/check_arch.done"
 fi
 
 # Define a function to deactivate the SDK
@@ -46,8 +52,10 @@ deactivatemesasdk () {
         unset _OLD_MESASDK_PGPLOT_DIR
     fi
 
-    # 
+    #
+    unset VALGRIND_LIB
     unset MESASDK_ACTIVE
+    unset MESASDK_VERSION
 
     # Self destruct!
     if [ ! "$1" = "nondestructive" ] ; then
@@ -75,5 +83,11 @@ hash -r 2>/dev/null
 _OLD_MESASDK_PGPLOT_DIR="$PGPLOT_DIR"
 export PGPLOT_DIR="${MESASDK_ROOT}/pgplot"
 
+# take care of valgrind
+export VALGRIND_LIB="${MESASDK_ROOT}/lib/valgrind"
+
 # indicate the SDK is active
 export MESASDK_ACTIVE=t
+
+# Set other environment variables
+export MESASDK_VERSION=`${MESASDK_ROOT}/bin/mesasdk_version`
